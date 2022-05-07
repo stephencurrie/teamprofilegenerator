@@ -3,11 +3,37 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const Employee = require("./lib/Employee.js");
+const Engineer = require("./lib/Engineer.js");
+const Manager = require('./lib/Manager.js');
 
 const employee = new Employee ();
 // Prompts to get information from user input
 
+// this is team array
+const teammembers=[];
+
+const promptTeam = () => {
+  return inquirer.prompt([{
+  type: 'list',
+  name: 'teamtype',
+  message: 'Which type of team member would you like to add?',
+  choices: [
+    {value: 'engineer', name: "Engineer"},
+    {value: 'intern', name: "Intern"},
+    {value: 'end', name: "I don't want to add anyone else"},
+  ],
+
+}]).then (answers => {
+  if (answers.teamtype === "engineer") {
+    promptEngineer();
+  
+  } else if (answers.teamtype === "intern") {
+    promptIntern();
+  } else {
+    generateHtml();
+  }
+})
+}
 const promptManager = () => {
     return inquirer.prompt([
       {
@@ -30,22 +56,19 @@ const promptManager = () => {
         name: 'number',
         message: 'What is the teams managers number?',
       },
-      {
-        type: 'list',
-        name: 'teamtype',
-        message: 'Which type of team member would you like to add?',
-        choices: [
-          {value: 'engineer', name: "Engineer"},
-          {value: 'intern', name: "Intern"},
-          {value: 'end', name: "I don't want to add anyone else"},
-        ],
-
-      },
-    ]);
+     
+    ]) .then(answers => {
+// this creates manager object and adds it to team member array with push (do the same thing with intern and engineer)
+      const manager = new Manager(answers.name, answers.id, answers.email, answers.number);
+teammembers.push(manager);
+promptTeam();
+    })
 };
 
 
 // Generate html file
+
+// const generateManagerHtml = ({ manager, id, email, number }) =>
 
 const generateHtml = ({ manager, id, email, number, teamtype, }) =>
 {
