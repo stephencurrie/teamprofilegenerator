@@ -1,80 +1,158 @@
 // Gets Inquirer and Ability to write a file
 
-const inquirer = require('inquirer');
-const fs = require('fs');
+const inquirer = require("inquirer");
+const fs = require("fs");
 
 const Engineer = require("./lib/Engineer.js");
-const Manager = require('./lib/Manager.js');
+const Manager = require("./lib/Manager.js");
 
-const employee = new Employee ();
+const employee = new Employee();
 // Prompts to get information from user input
 
 // this is team array
-const teammembers=[];
+const teammembers = [];
 
 const promptTeam = () => {
-  return inquirer.prompt([{
-  type: 'list',
-  name: 'teamtype',
-  message: 'Which type of team member would you like to add?',
-  choices: [
-    {value: 'engineer', name: "Engineer"},
-    {value: 'intern', name: "Intern"},
-    {value: 'end', name: "I don't want to add anyone else"},
-  ],
-
-}]).then (answers => {
-  if (answers.teamtype === "engineer") {
-    promptEngineer();
-  
-  } else if (answers.teamtype === "intern") {
-    promptIntern();
-  } else {
-    generateHtml();
-  }
-})
-}
+  return inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "teamtype",
+        message: "Which type of team member would you like to add?",
+        choices: [
+          { value: "engineer", name: "Engineer" },
+          { value: "intern", name: "Intern" },
+          { value: "end", name: "I don't want to add anyone else" },
+        ],
+      },
+    ])
+    .then((answers) => {
+      if (answers.teamtype === "engineer") {
+        promptEngineer();
+      } else if (answers.teamtype === "intern") {
+        promptIntern();
+      } else {
+        generateHtml();
+      }
+    });
+};
 const promptManager = () => {
-    return inquirer.prompt([
+  return inquirer
+    .prompt([
       {
-        type: 'input',
-        name: 'manager',
-        message: 'What is the team managers name?',
+        type: "input",
+        name: "manager",
+        message: "What is the team managers name?",
       },
       {
-        type: 'input',
-        name: 'id',
-        message: 'What is the team managers id?',
+        type: "input",
+        name: "id",
+        message: "What is the team managers id?",
       },
       {
-        type: 'input',
-        name: 'email',
-        message: 'What is the teams managers email?',
+        type: "input",
+        name: "email",
+        message: "What is the teams managers email?",
       },
       {
-        type: 'input',
-        name: 'number',
-        message: 'What is the teams managers number?',
+        type: "input",
+        name: "number",
+        message: "What is the teams managers number?",
       },
-     
-    ]) .then(answers => {
-// this creates manager object and adds it to team member array with push (do the same thing with intern and engineer)
-      const manager = new Manager(answers.name, answers.id, answers.email, answers.number);
-teammembers.push(manager);
-promptTeam();
-    })
+    ])
+    .then((answers) => {
+      // this creates manager object and adds it to team member array with push (do the same thing with intern and engineer)
+      const manager = new Manager(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.number
+      );
+      teammembers.push(manager);
+      promptTeam();
+    });
 };
 
+const promptEngineer = () => {
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "engineer",
+        message: "What is the engineer's name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the engineer's id?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the engineer's email?",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "What is the engineers github?",
+      },
+    ])
+    .then((answers) => {
+      // this creates manager object and adds it to team member array with push (do the same thing with intern and engineer)
+      const engineer = new Engineer(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.github
+      );
+      teammembers.push(engineer);
+      promptTeam();
+    });
+};
+
+const promptIntern = () => {
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "intern",
+        message: "What is the intern's name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the intern's id?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the intern's email?",
+      },
+      {
+        type: "input",
+        name: "number",
+        message: "What is the intern's school?",
+      },
+    ])
+    .then((answers) => {
+      // this creates manager object and adds it to team member array with push (do the same thing with intern and engineer)
+      const intern = new Intern(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.school
+      );
+      teammembers.push(intern);
+      promptTeam();
+    });
+};
 
 // Generate html file
 
 // const generateManagerHtml = ({ manager, id, email, number }) =>
 
-const generateHtml = ({ manager, id, email, number, teamtype, }) =>
-{
-  
-
-return `
+const generateHtml = ({ manager, id, email, number, teamtype }) => {
+  return `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -244,16 +322,17 @@ return `
   </body>
 </html>
 `;
-}
+};
 
 // Starts function to prompt user and then generates README.md file
 
 const init = () => {
-    promptManager()
-      
-      .then((generatePage) => fs.writeFileSync('./dist/newindex.html', generateHtml(generatePage)))
-      .then(() => console.log('Successfully created HTML page'))
-      .catch((err) => console.error(err));
-  };
-  
-  init();
+  promptManager()
+    .then((generatePage) =>
+      fs.writeFileSync("./dist/newindex.html", generateHtml(generatePage))
+    )
+    .then(() => console.log("Successfully created HTML page"))
+    .catch((err) => console.error(err));
+};
+
+init();
