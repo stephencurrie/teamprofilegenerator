@@ -3,9 +3,9 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const Game = require("./lib/Employee.js");
+const Employee = require("./lib/Employee.js");
 
-
+const employee = new Employee ();
 // Prompts to get information from user input
 
 const promptManager = () => {
@@ -99,7 +99,7 @@ return `
 
               <div class="card-header bg-primary text-white">
                 <h5>${manager}</h5>
-                <p><i class="fa-solid fa-mug-hot"></i><span>Manager</span></p>
+                <p><i class="fa-solid fa-mug-hot"></i><span> Manager</span></p>
               </div>
               <div class="card-body bg-light">
               <ul class="list-group list-group-flush">
