@@ -1,53 +1,4 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
 
-
-// Prompts to get information from user input
-
-const promptManager = () => {
-    return inquirer.prompt([
-      {
-        type: 'input',
-        name: 'manager',
-        message: 'What is the team managers name?',
-      },
-      {
-        type: 'input',
-        name: 'id',
-        message: 'What is the team managers id?',
-      },
-      {
-        type: 'input',
-        name: 'email',
-        message: 'What is the teams managers email?',
-      },
-      {
-        type: 'input',
-        name: 'number',
-        message: 'What is the teams managers number?',
-      },
-      {
-        type: 'list',
-        name: 'teamtype',
-        message: 'Which type of team member would you like to add?',
-        choices: [
-          {value: 'engineer', name: "Engineer"},
-          {value: 'intern', name: "Intern"},
-          {value: 'end', name: "I don't want to add anyone else"},
-        ],
-
-      },
-    ]);
-};
-
-
-// Generate html file
-
-const generateHtml = ({ manager, id, email, number, teamtype, }) =>
-{
-  
-
-return `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -94,14 +45,14 @@ return `
         <div class="card" style="width: 18rem;">
 
               <div class="card-header bg-primary text-white">
-                <h5>${manager}</h5>
-                <p><i class="fa-solid fa-mug-hot"></i><span>Manager</span></p>
+                <h5>Jared</h5>
+                <p><i class="fa-solid fa-mug-hot"></i><span>Stephen</span></p>
               </div>
               <div class="card-body bg-light">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID:<span>${id}</span></li>
-                <li class="list-group-item">Email:<span>${email}</span></li>
-                <li class="list-group-item">Office Number:<span>${number}</span></li>
+                <li class="list-group-item">ID:<span>444</span></li>
+                <li class="list-group-item">Email:<span>scurrie@gmail.com</span></li>
+                <li class="list-group-item">Office Number:<span>4045231288</span></li>
               </ul>
               
 
@@ -216,17 +167,3 @@ return `
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
-`;
-}
-
-// Starts function to prompt user and then generates README.md file
-
-const init = () => {
-    promptManager()
-      
-      .then((generatePage) => fs.writeFileSync('./dist/newindex.html', generateHtml(generatePage)))
-      .then(() => console.log('Successfully created HTML page'))
-      .catch((err) => console.error(err));
-  };
-  
-  init();
