@@ -1,5 +1,9 @@
+// Gets Inquirer and Ability to write a file
+
 const inquirer = require('inquirer');
 const fs = require('fs');
+
+const Game = require("./lib/Employee.js");
 
 
 // Prompts to get information from user input
