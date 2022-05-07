@@ -3,10 +3,11 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-const Engineer = require("./lib/Engineer.js");
 const Manager = require("./lib/Manager.js");
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
 
-const employee = new Employee();
+// const employee = new Employee();
 // Prompts to get information from user input
 
 // this is team array
