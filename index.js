@@ -175,7 +175,7 @@ const promptIntern = () => {
 // Generate html file
 
 const generatePage = () => {
-  fs.writeFile("dist/newindex.html", render(teamMembers), (err) => {
+  fs.writeFile("dist/index.html", render(teamMembers), (err) => {
     if (err) {
       console.log(err);
     }
